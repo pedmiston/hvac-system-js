@@ -1,12 +1,17 @@
 # My Lineman Application
 
-Run app: `npm start`
+## Setup
 
-The app will be running at localhost:8000
+1. Make sure that you have npm installed on your system 
+1. Run `npm install` to install all of the necessary packages
 
-Run specs in CI: `npm test`
+## Testing
 
-Run continuous specs: `npm run spec` will start a continuous tester but will not automatically recompile the javascript on changes. For that you should open a second terminal and simultaneously run `npm start`.
+Start the app with `npm start`. It will be running at localhost:8000.
+
+Run the specs in CI with `npm test`.
+
+Run the continuous specs with `npm run spec`. This will start a continuous tester but will not automatically recompile the javascript on changes. For that you should open a second terminal and simultaneously run `npm start`.
 
 ## Structure
 
