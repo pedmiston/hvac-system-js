@@ -11,9 +11,19 @@ describe("environmentController", function() {
     setFan(on) { this._fanOn = on; }
   };
 
-  it ("ticks", () => {
+  it ("ticks and passes a test", () => {
     controller = new EnvironmentController(hvacDummy);
 
     controller.tick();
+
+    expect(true).toBe(true);
+  });
+
+  it ("ticks and fails a test", () => {
+    controller = new EnvironmentController(hvacDummy);
+
+    controller.tick();
+
+    expect(true).toBe(false);
   });
 });
