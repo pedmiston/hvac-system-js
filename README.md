@@ -1,8 +1,21 @@
 # My Lineman Application
 
+## Requirements
+
+1. Keep the room temperature before 65 and 75 degrees at all times.
+1. If you want to heat the room, you need to turn on both the fan and the heater.
+1. If you want to cool the room, you need to turn on both the fan and the cooler.
+
+## Constraints
+
+1. The thermostat has a lot of lag meaning that you can take an action once per minute. Any faster and it will explode.
+1. After the heater is turned off, the fan stalls. You can't turn on the fan for five minutes after the heat is turned off or it will explode.
+1. After the cooler is turned off, the fan stalls. You can't turn on the fan for three minutes after the cooler is turned off or it will explode.
+1. It is dangerous to turn the heater or cooler without the fan. They will explode...
+
 ## Setup
 
-1. Make sure that you have npm installed on your system 
+1. Make sure that you have npm installed on your system
 1. Run `npm install` to install all of the necessary packages
 
 ## Testing
