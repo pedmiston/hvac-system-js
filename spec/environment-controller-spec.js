@@ -18,4 +18,13 @@ describe("environmentController", function() {
 
     expect(hvacDummy._fanOn).toBe(true);
   });
+
+  it ("turns fan off", () => {
+    hvacDummy._temp = 70;
+    controller = new EnvironmentController(hvacDummy);
+
+    controller.tick();
+
+    expect(hvacDummy._fanOn).toBe(false);
+  });
 });
