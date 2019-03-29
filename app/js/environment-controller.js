@@ -20,6 +20,7 @@ EnvironmentController = function(HVAC) {
     switch (this.getState()) {
       case states.HEAT:
         HVAC.setFan(true);
+        HVAC.setHeat(true);
         break;
       case states.COOL:
         HVAC.setFan(true);
