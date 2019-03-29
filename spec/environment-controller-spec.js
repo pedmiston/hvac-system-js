@@ -32,18 +32,18 @@ describe("environmentController", function() {
   it ("determines heat_on state", () => {
     hvacDummy._temp = 64;
     controller = new EnvironmentController(hvacDummy);
-    expect(controller.getState()).toBe("heat_on");
+    expect(controller.getState()).toBe("heat");
   });
 
   it ("determines cool_on state", () => {
     hvacDummy._temp = 76;
     controller = new EnvironmentController(hvacDummy);
-    expect(controller.getState()).toBe("cool_on");
+    expect(controller.getState()).toBe("cool");
   });
 
   it ("determines off state", () => {
     hvacDummy._temp = 70;
     controller = new EnvironmentController(hvacDummy);
-    expect(controller.getState()).toBe("hvac_off");
+    expect(controller.getState()).toBe("off");
   });
 });

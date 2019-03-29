@@ -1,13 +1,13 @@
 EnvironmentController = function(HVAC) {
   const states = {
-    HEAT_ON: "heat_on",
-    COOL_ON: "cool_on",
-    HVAC_OFF: "hvac_off"
+    HEAT: "heat",
+    COOL: "cool",
+    OFF: "off"
   }
   this.getState = function() {
-    if(HVAC._temp < 65) state = states.HEAT_ON
-    else if(HVAC._temp > 75) state = states.COOL_ON
-    else state = states.HVAC_OFF
+    if(HVAC._temp < 65) state = states.HEAT
+    else if(HVAC._temp > 75) state = states.COOL
+    else state = states.OFF
     return state
   }
   this.tick = function() {
