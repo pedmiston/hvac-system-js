@@ -29,15 +29,30 @@ class EnvironmentController {
   tick() {
     switch (this.getState()) {
       case states.HEAT:
-        this.HVAC.setFan(true);
-        this.HVAC.setHeat(true);
+        this.heat();
         break;
       case states.COOL:
-        this.HVAC.setFan(true);
+        this.cool();
         break;
       case states.OFF:
-        this.HVAC.setFan(false);
+        this.off();
         break;
     }
+  }
+
+  heat() {
+    this.HVAC.setFan(true);
+    this.HVAC.setHeat(true);
+  }
+
+  cool() {
+    this.HVAC.setFan(true);
+    this.HVAC.setCool(true);
+  }
+
+  off() {
+    this.HVAC.setFan(false);
+    this.HVAC.setHeat(false);
+    this.HVAC.setCool(false);
   }
 }
