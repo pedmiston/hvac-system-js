@@ -1,34 +1,43 @@
 /*jshint esversion: 6 */
 
-EnvironmentController = function(HVAC) {
-  // Possible states of the environment
-  const states = {
-    HEAT: "heat",
-    COOL: "cool",
-    OFF: "off"
-  };
+
+// Possible states of the environment
+const states = {
+  HEAT: "heat",
+  COOL: "cool",
+  OFF: "off"
+};
+
+
+class EnvironmentController {
+
+  constructor(HVAC) {
+    this.HVAC = HVAC;
+  }
 
   // Determine the state of the environment
-  this.getState = function() {
-    if(HVAC._temp < 65) { state = states.HEAT; }
-    else if(HVAC._temp > 75) { state = states.COOL; }
-    else { state = states.OFF; }
-    return state;
-  };
+  getState() {
+    if(this.HVAC._temp < 65) {
+      return states.HEAT;
+    } else if(this.HVAC._temp > 75) {
+      return states.COOL;
+    } else {
+      return states.OFF;
+    }
+  }
 
-  this.tick = function() {
+  tick() {
     switch (this.getState()) {
       case states.HEAT:
-        HVAC.setFan(true);
-        HVAC.setHeat(true);
+        this.HVAC.setFan(true);
+        this.HVAC.setHeat(true);
         break;
       case states.COOL:
-        HVAC.setFan(true);
+        this.HVAC.setFan(true);
         break;
       case states.OFF:
-        HVAC.setFan(false);
+        this.HVAC.setFan(false);
         break;
     }
-  };
-  return this;
-};
+  }
+}
