@@ -1,7 +1,7 @@
 /*jshint esversion: 6 */
 
 
-// Possible states of the environment
+// Possible states of the HVAC controller
 const states = {
   HEAT: "heat",
   COOL: "cool",
@@ -13,6 +13,11 @@ class EnvironmentController {
 
   constructor(HVAC) {
     this.HVAC = HVAC;
+    this.timers = {
+      fanOn: 0,
+      headOn: 0,
+      coolOn: 0
+    };
   }
 
   // Determine the state of the environment
@@ -27,6 +32,8 @@ class EnvironmentController {
   }
 
   tick() {
+    if(this.HVAC._fanOn) { this.timers.fanOn += 1; }
+
     switch (this.getState()) {
       case states.HEAT:
         this.heat();
@@ -42,12 +49,16 @@ class EnvironmentController {
 
   heat() {
     this.HVAC.setFan(true);
-    this.HVAC.setHeat(true);
+    if(this.timers.fanOn >= 1) {
+      this.HVAC.setHeat(true);
+    }
   }
 
   cool() {
     this.HVAC.setFan(true);
-    this.HVAC.setCool(true);
+    if(this.timers.fanOn >= 1) {
+      this.HVAC.setCool(true);
+    }
   }
 
   off() {

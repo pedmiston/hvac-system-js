@@ -1,4 +1,4 @@
-describe("The environment is cold. HVAC", () => {
+describe("The environment is cold. The HVAC controller", () => {
   var HVAC, controller;
 
   beforeEach(() => {
@@ -19,13 +19,26 @@ describe("The environment is cold. HVAC", () => {
     expect(controller.getState()).toBe("heat")
   });
 
-  it ("turns the fan on", () => {
+  it("turns the fan on", () => {
     controller.tick();
     expect(HVAC._fanOn).toBe(true);
   });
+
+  it("doesn't turn both the fan and the heat on", () => {
+    controller.tick();
+    expect(HVAC._fanOn).toBe(true);
+    expect(HVAC._heatOn).toBe(false);
+  });
+
+  it("turns the heat on one minute later", () => {
+    controller.tick();
+    controller.tick();
+    expect(HVAC._fanOn).toBe(true);
+    expect(HVAC._heatOn).toBe(true);
+  });
 });
 
-describe("The environment is hot. HVAC", () => {
+describe("The environment is hot. The HVAC controller", () => {
   var HVAC, controller;
 
   beforeEach(() => {
@@ -50,9 +63,22 @@ describe("The environment is hot. HVAC", () => {
     controller.tick();
     expect(HVAC._fanOn).toBe(true);
   });
+
+  it("doesn't turn both the fan and the cool on", () => {
+    controller.tick();
+    expect(HVAC._fanOn).toBe(true);
+    expect(HVAC._coolOn).toBe(false);
+  });
+
+  it("turns the cool on one minute later", () => {
+    controller.tick();
+    controller.tick();
+    expect(HVAC._fanOn).toBe(true);
+    expect(HVAC._coolOn).toBe(true);
+  })
 });
 
-describe("The environment is perfect! HVAC", () => {
+describe("The environment is perfect! The HVAC controller", () => {
   var HVAC, controller;
 
   beforeEach(() => {
