@@ -1,57 +1,81 @@
-describe("environmentController", function() {
+describe("The environment is cold. HVAC", () => {
+  var HVAC, controller;
 
-  let hvacDummy = {
-    _temp: 64,
-    _heatOn: false,
-    _coolOn: false,
-    _fanOn: false,
-    getTemp() { return this._temp; },
-    setHeat(on) { this._heatOn = on; },
-    setCool(on) { this._coolOn = on; },
-    setFan(on) { this._fanOn = on; }
-  };
+  beforeEach(() => {
+    HVAC = {
+      _temp: 64,
+      _heatOn: false,
+      _coolOn: false,
+      _fanOn: false,
+      getTemp() { return this._temp; },
+      setHeat(on) { this._heatOn = on; },
+      setCool(on) { this._coolOn = on; },
+      setFan(on) { this._fanOn = on; }
+    };
+    controller = new EnvironmentController(HVAC);
+  });
 
-  it ("turns fan on", () => {
-    hvacDummy._temp = 64;
-    controller = new EnvironmentController(hvacDummy);
+  it("detects that it's cold", () => {
+    expect(controller.getState()).toBe("heat")
+  });
 
+  it ("turns the fan on", () => {
     controller.tick();
+    expect(HVAC._fanOn).toBe(true);
+  });
+});
 
-    expect(hvacDummy._fanOn).toBe(true);
+describe("The environment is hot. HVAC", () => {
+  var HVAC, controller;
+
+  beforeEach(() => {
+    HVAC = {
+      _temp: 76,
+      _heatOn: false,
+      _coolOn: false,
+      _fanOn: false,
+      getTemp() { return this._temp; },
+      setHeat(on) { this._heatOn = on; },
+      setCool(on) { this._coolOn = on; },
+      setFan(on) { this._fanOn = on; }
+    };
+    controller = new EnvironmentController(HVAC);
   });
 
-  it ("turns fan off", () => {
-    hvacDummy._temp = 70;
-    controller = new EnvironmentController(hvacDummy);
-
-    controller.tick();
-
-    expect(hvacDummy._fanOn).toBe(false);
-  });
-
-  it ("determines 'heat on' state", () => {
-    hvacDummy._temp = 64;
-    controller = new EnvironmentController(hvacDummy);
-    expect(controller.getState()).toBe("heat");
-  });
-
-  it ("determines 'cool on' state", () => {
-    hvacDummy._temp = 76;
-    controller = new EnvironmentController(hvacDummy);
+  it("detects that it's hot", () => {
     expect(controller.getState()).toBe("cool");
   });
 
-  it ("determines 'off' state", () => {
-    hvacDummy._temp = 70;
-    controller = new EnvironmentController(hvacDummy);
+  it("turns the fan on", () => {
+    controller.tick();
+    expect(HVAC._fanOn).toBe(true);
+  });
+});
+
+describe("The environment is perfect! HVAC", () => {
+  var HVAC, controller;
+
+  beforeEach(() => {
+    HVAC = {
+      _temp: 70,
+      _heatOn: false,
+      _coolOn: false,
+      _fanOn: false,
+      getTemp() { return this._temp; },
+      setHeat(on) { this._heatOn = on; },
+      setCool(on) { this._coolOn = on; },
+      setFan(on) { this._fanOn = on; }
+    };
+    controller = new EnvironmentController(HVAC);
+  });
+
+  it("detects that it's perfect", () => {
     expect(controller.getState()).toBe("off");
   });
 
-  it ("turns heat on", () => {
-    hvacDummy._temp = 64;
-    hvacDummy._fanOn = true;
-    controller = new EnvironmentController(hvacDummy);
+  it ("turns the fan off", () => {
     controller.tick();
-    expect(hvacDummy._heatOn).toBe(true);
+    expect(HVAC._fanOn).toBe(false);
   });
+
 });
