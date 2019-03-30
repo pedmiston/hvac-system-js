@@ -15,8 +15,8 @@ class EnvironmentController {
     this.HVAC = HVAC;
     this.timers = {
       fanOn: 0,
-      headOn: 0,
-      coolOn: 0
+      heatOff: 0,
+      coolOff: 0
     };
   }
 
@@ -33,6 +33,8 @@ class EnvironmentController {
 
   tick() {
     if(this.HVAC._fanOn) { this.timers.fanOn += 1; }
+    if(!this.HVAC._heatOn) { this.timers.heatOff += 1; }
+    if(!this.HVAC._coolOn) { this.timers.coolOff += 1; }
 
     switch (this.getState()) {
       case states.HEAT:
@@ -48,16 +50,22 @@ class EnvironmentController {
   }
 
   heat() {
-    this.HVAC.setFan(true);
+    this.fan()
     if(this.timers.fanOn >= 1) {
       this.HVAC.setHeat(true);
     }
   }
 
   cool() {
-    this.HVAC.setFan(true);
+    this.fan()
     if(this.timers.fanOn >= 1) {
       this.HVAC.setCool(true);
+    }
+  }
+
+  fan() {
+    if(this.timers.heatOff > 5 && this.timers.coolOff > 3) {
+      this.HVAC.setFan(true);
     }
   }
 

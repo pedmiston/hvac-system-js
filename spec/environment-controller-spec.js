@@ -13,6 +13,8 @@ describe("The environment is cold. The HVAC controller", () => {
       setFan(on) { this._fanOn = on; }
     };
     controller = new EnvironmentController(HVAC);
+    controller.timers.heatOff = 10;  // the heat has been off for a while
+    controller.timers.coolOff = 10;  // the cool has been off for a while
   });
 
   it("detects that it's cold", () => {
@@ -53,6 +55,8 @@ describe("The environment is hot. The HVAC controller", () => {
       setFan(on) { this._fanOn = on; }
     };
     controller = new EnvironmentController(HVAC);
+    controller.timers.heatOff = 10;  // the heat has been off for a while
+    controller.timers.coolOff = 10;  // the cool has been off for a while
   });
 
   it("detects that it's hot", () => {
@@ -99,9 +103,55 @@ describe("The environment is perfect! The HVAC controller", () => {
     expect(controller.getState()).toBe("off");
   });
 
-  it ("turns the fan off", () => {
+  it("turns the fan off", () => {
     controller.tick();
     expect(HVAC._fanOn).toBe(false);
   });
 
 });
+
+describe("The environment is fluctuates. The HVAC controller", () => {
+  var HVAC, controller;
+
+  beforeEach(() => {
+    HVAC = {
+      _temp: 64,
+      _heatOn: false,
+      _coolOn: false,
+      _fanOn: false,
+      getTemp() { return this._temp; },
+      setHeat(on) { this._heatOn = on; },
+      setCool(on) { this._coolOn = on; },
+      setFan(on) { this._fanOn = on; }
+    };
+    controller = new EnvironmentController(HVAC);
+  });
+
+  it("keeps track of how long the heat and cool have been turned off", () => {
+    controller.tick();
+    expect(controller.timers.heatOff).toBe(1);
+    expect(controller.timers.coolOff).toBe(1);
+  });
+
+  it("waits 5 minutes since the heat turned off to turn the fan on", () => {
+    controller.timers.coolOff = 10;  // the cool has been off for a while
+    controller.tick();
+    expect(HVAC._fanOn).toBe(false);
+    controller.tick();
+    controller.tick();
+    controller.tick();
+    controller.tick();
+    controller.tick();
+    expect(HVAC._fanOn).toBe(true);
+  });
+
+  it("waits 3 minutes since the cool turned off to turn the fan on", () => {
+    controller.timers.heatOff = 10;  // the heat has been off for a while
+    controller.tick();
+    expect(HVAC._fanOn).toBe(false);
+    controller.tick();
+    controller.tick();
+    controller.tick();
+    expect(HVAC._fanOn).toBe(true);
+  });
+})
