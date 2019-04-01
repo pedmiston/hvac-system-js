@@ -50,14 +50,14 @@ class EnvironmentController {
   }
 
   heat() {
-    this.fan()
+    this.fan();
     if(this.timers.fanOn >= 1) {
       this.HVAC.setHeat(true);
     }
   }
 
   cool() {
-    this.fan()
+    this.fan();
     if(this.timers.fanOn >= 1) {
       this.HVAC.setCool(true);
     }
