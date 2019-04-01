@@ -154,4 +154,69 @@ describe("The environment is fluctuates. The HVAC controller", () => {
     controller.tick();
     expect(HVAC._fanOn).toBe(true);
   });
-})
+});
+
+
+describe("The room is heated. The HVAC controller", () => {
+  var HVAC, controller;
+
+  beforeEach(() => {
+    HVAC = {
+      _temp: 65,
+      _heatOn: true,
+      _coolOn: false,
+      _fanOn: true,
+      getTemp() { return this._temp; },
+      setHeat(on) { this._heatOn = on; },
+      setCool(on) { this._coolOn = on; },
+      setFan(on) { this._fanOn = on; }
+    };
+    controller = new EnvironmentController(HVAC);
+  });
+
+  it("turns the heat off", () => {
+    controller.tick();
+    expect(HVAC._heatOn).toBe(false);
+  });
+
+  it("waits to turn the fan off", () => {
+    controller.tick();
+    expect(HVAC._heatOn).toBe(false);
+    expect(HVAC._fanOn).toBe(true);
+    controller.tick();
+    expect(HVAC._heatOn).toBe(false);
+    expect(HVAC._fanOn).toBe(false);
+  })
+});
+
+describe("The room is cooled. The HVAC controller", () => {
+  var HVAC, controller;
+
+  beforeEach(() => {
+    HVAC = {
+      _temp: 75,
+      _heatOn: false,
+      _coolOn: true,
+      _fanOn: true,
+      getTemp() { return this._temp; },
+      setHeat(on) { this._heatOn = on; },
+      setCool(on) { this._coolOn = on; },
+      setFan(on) { this._fanOn = on; }
+    };
+    controller = new EnvironmentController(HVAC);
+  });
+
+  it("turns the cool off", () => {
+    controller.tick();
+    expect(HVAC._coolOn).toBe(false);
+  });
+
+  it("waits to turn the fan off", () => {
+    controller.tick();
+    expect(HVAC._coolOn).toBe(false);
+    expect(HVAC._fanOn).toBe(true);
+    controller.tick();
+    expect(HVAC._coolOn).toBe(false);
+    expect(HVAC._fanOn).toBe(false);
+  })
+});

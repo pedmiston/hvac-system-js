@@ -70,8 +70,10 @@ class EnvironmentController {
   }
 
   off() {
-    this.HVAC.setFan(false);
     this.HVAC.setHeat(false);
     this.HVAC.setCool(false);
+    if(this.timers.heatOff >= 1  && this.timers.coolOff >= 1) {
+      this.HVAC.setFan(false);
+    }
   }
 }
