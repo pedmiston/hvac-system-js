@@ -18,12 +18,4 @@ describe("environmentController", function() {
 
     expect(true).toBe(true);
   });
-
-  it ("ticks and fails a test", () => {
-    controller = new EnvironmentController(hvacDummy);
-
-    controller.tick();
-
-    expect(true).toBe(false);
-  });
 });

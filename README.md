@@ -1,20 +1,39 @@
-# My Lineman Application
+# HVAC System
+
+## Background
+
+This is a simple [lineman](http://linemanjs.com/) app that we use to practice some of the concepts of TDD in Javascript. We often use it to highlight some of the difficulties that you might encounter when you need to test around a third party API that you do not directly control.
+
+This app contains no modern UI frameworks; your task is not to install a new framework like React but rather to work within the constraints that are given.
 
 ## Setup
 
-1. Make sure that you have npm installed on your system 
-1. Run `npm install` to install all of the necessary packages
+Install the [Node Version Manager](https://github.com/nvm-sh/nvm). Mac users can use Homebrew:
+
+```
+brew install nvm
+```
+
+Navigate to the root of this directory and run:
+
+```
+nvm use
+nvm install
+npm install
+```
+
+Note that "nvm" controls the version of NodeJS that you are using while "npm" manages packages under that specific version.
 
 ## Testing
 
-Start the app with `npm start`. It will be running at localhost:8000.
+Tests are written with Jasmine and run with testem. You can find sample specs in `spec/environment-controller-spec.js`.
 
-Run the specs in CI with `npm test`.
+Run the continuous test suite with `npm test`. This will start a continuous tester but will not automatically recompile the javascript on changes. For that you should open a second terminal and simultaneously run `npm start`.
 
-Run the continuous specs with `npm run spec`. This will start a continuous tester but will not automatically recompile the javascript on changes. For that you should open a second terminal and simultaneously run `npm start`.
+## Building and Running the App
 
-## Structure
+Start the app with `npm start`. It will be running on `localhost:8000`.
 
-This app is a very simple [lineman](http://linemanjs.com/) app. It contains no UI frameworks, and your first task is not to install React but to work within the constraints that are given.
+If you want to run the app in a production-like state (i.e. clean, build, and run on express.js), you can use the command `npm run production`.
 
-Tests are run with testem, and written with Jasmine. You can find the first test in `spec/hello-spec.js`. It's currently using Jasmine-Given, but you don't have to use it. The template uses [underscore](https://underscorejs.org/#template) templates (and has underscore available) which are found in the `templates` and loaded into the `JST` object. You can look at `hello.js` to see how it works and at the Lineman docs for specifics.
+The app uses [underscore](https://underscorejs.org/#template) templates which are found in `app/templates` and loaded into the `JST` object. You can look at `app/js/environment-controller.js` to see how it works and at the Lineman docs for specifics.
