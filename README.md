@@ -13,9 +13,17 @@ Install the [Node Version Manager](https://github.com/nvm-sh/nvm). Mac users can
 ```
 brew install nvm
 ```
-
-Navigate to the root of this directory and run:
-
+In the terminal type:
+```
+brew info nvm
+```
+Copy the following lines from your terminal into your shell profile(bash_profile, bashrc, zshrc, etc...):
+```
+export NVM_DIR="$HOME/.nvm"
+  [ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
+  [ -s "/usr/local/opt/nvm/etc/bash_completion" ] && . "/usr/local/opt/nvm/etc/bash_completion"  # This loads nvm bash_completion
+```
+After saving the changes you will then need to reload your terminal.  Navigate to the root of this directory and run:
 ```
 nvm use
 nvm install
