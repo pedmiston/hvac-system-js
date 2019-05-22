@@ -10,24 +10,26 @@ This app contains no modern UI frameworks; your task is not to install a new fra
 
 Install the [Node Version Manager](https://github.com/nvm-sh/nvm). Mac users can use Homebrew:
 
-```
+```bash
 brew install nvm
 ```
-In the terminal type:
-```
-brew info nvm
-```
-Copy the following lines from your terminal into your shell profile(bash_profile, bashrc, zshrc, etc...):
-```
+
+To configure nvm, add the following lines to your bash profile, for example, your .bashrc or .zshrc file in your home directory.
+
+```bash
 export NVM_DIR="$HOME/.nvm"
   [ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
   [ -s "/usr/local/opt/nvm/etc/bash_completion" ] && . "/usr/local/opt/nvm/etc/bash_completion"  # This loads nvm bash_completion
 ```
-After saving the changes you will then need to reload your terminal.  Navigate to the root of this directory and run:
-```
-nvm use
-nvm install
-npm install
+
+These lines should have been printed to your terminal when `brew install nvm` completed. If you want to read the instructions again, run `brew info nvm`.
+
+After saving the changes you will then need to reload your terminal so that nvm is on your path.  Navigate to the root of this directory and run:
+
+```bash
+nvm install  # Install the version of NodeJS stored in ".nvmrc" to the system
+nvm use      # Activate the version of NodeJS in ".nvmrc"
+npm install  # Install the required JS packages
 ```
 
 Note that "nvm" controls the version of NodeJS that you are using while "npm" manages packages under that specific version.
